@@ -41,7 +41,8 @@ DeepGit is an intelligent GitHub repository discovery agent. Give it a natural l
 | Input | Description |
 |-------|-------------|
 | `GITHUB_API_KEY` | GitHub personal access token ([create one](https://github.com/settings/tokens)) |
-| `GROQ_API_KEY` | Groq API key for the LLM — free tier at [console.groq.com](https://console.groq.com) |
+| `GROQ_API_KEY` | Always required — the evaluation pipeline uses Groq directly. Free tier at [console.groq.com](https://console.groq.com) |
+| `MINIMAX_API_KEY` | Optional — only needed if `LLM_PROVIDER=minimax` |
 
 ## Limitations
 

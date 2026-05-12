@@ -22,13 +22,13 @@ inputs:
     name: GROQ_API_KEY
     datatype: string
     secret: true
-    description: Groq API key (required when LLM_PROVIDER=groq, which is the default)
+    description: "Groq API key — always required. The evaluation pipeline uses Groq directly (free tier at console.groq.com)"
     display-as: short-text
 
   LLM_PROVIDER:
     name: LLM_PROVIDER
     datatype: string
-    description: "LLM backend to use: groq (default) or minimax"
+    description: "LLM backend for the main reasoning steps: groq (default) or minimax"
     default: groq
     optional: true
     display-as: select
@@ -37,7 +37,7 @@ inputs:
   LLM_MODEL:
     name: LLM_MODEL
     datatype: string
-    description: "Override the default model for the selected provider, e.g. llama-3.3-70b-versatile"
+    description: "Override the default model (groq default: deepseek-r1-distill-llama-70b, minimax default: MiniMax-M2.7)"
     optional: true
     display-as: short-text
 
@@ -45,7 +45,7 @@ inputs:
     name: MINIMAX_API_KEY
     datatype: string
     secret: true
-    description: MiniMax API key (required when LLM_PROVIDER=minimax)
+    description: "MiniMax API key — only needed when LLM_PROVIDER=minimax"
     optional: true
     display-as: short-text
 
