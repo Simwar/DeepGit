@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://astropods.ai/schema/package.json
+spec: package/v1
+name: deep-git
+
+agent:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  interfaces:
+    frontend: true
+    messaging: false
+
+inputs:
+  GITHUB_API_KEY:
+    name: GITHUB_API_KEY
+    datatype: string
+    secret: true
+    description: GitHub personal access token for repository search and metadata
+    display-as: short-text
+
+  GROQ_API_KEY:
+    name: GROQ_API_KEY
+    datatype: string
+    secret: true
+    description: Groq API key (required when LLM_PROVIDER=groq, which is the default)
+    display-as: short-text
+
+  LLM_PROVIDER:
+    name: LLM_PROVIDER
+    datatype: string
+    description: "LLM backend to use: groq (default) or minimax"
+    default: groq
+    optional: true
+    display-as: select
+    options: [groq, minimax]
+
+  LLM_MODEL:
+    name: LLM_MODEL
+    datatype: string
+    description: "Override the default model for the selected provider, e.g. llama-3.3-70b-versatile"
+    optional: true
+    display-as: short-text
+
+  MINIMAX_API_KEY:
+    name: MINIMAX_API_KEY
+    datatype: string
+    secret: true
+    description: MiniMax API key (required when LLM_PROVIDER=minimax)
+    optional: true
+    display-as: short-text
+
+dev:
+  interfaces:
+    frontend:
+      port: 7860

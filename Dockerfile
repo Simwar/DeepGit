@@ -15,11 +15,18 @@ COPY requirements.txt .
 
 RUN pip install --upgrade pip setuptools wheel build && pip install -r requirements.txt
 
+# Pre-download HuggingFace models so they are baked into the image (no network needed at runtime)
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-mpnet-base-v2')"
+RUN python -c "from sentence_transformers import CrossEncoder; CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')"
+
 # Copy the rest of the code into the container
 COPY . .
 
-# Expose the default port for Gradio (if you want to access the app externally)
+# Bind Gradio to all interfaces and prevent re-downloading models at runtime
+ENV GRADIO_SERVER_NAME=0.0.0.0
+ENV GRADIO_SERVER_PORT=7860
+ENV TRANSFORMERS_OFFLINE=1
+
 EXPOSE 7860
 
-# Set the command to run your app
 CMD ["python", "app.py"]
